@@ -26,6 +26,30 @@ app.use(
   }),
 );
 
+app.use(express.json());
+
+app.use(express.urlencoded({ extended: true }));
+
+app.use(morgan("dev"));
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+  message: {
+    success: false,
+    message: "Too many requests. Please try again later.",
+  },
+});
+
+app.use("/api", limiter);
+
+app.get("/", (req, res) => {
+  res.json({
+    success: true,
+    message: "Hotel Booking API is running",
+  });
+});
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
