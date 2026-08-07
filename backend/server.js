@@ -4,12 +4,12 @@ const dotenv = require("dotenv");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const rateLimit = require("express-rate-limit");
+const dns = require("dns");
 
 const connectDB = require("./config/db");
 
 const authRoutes = require("./routes/authRoutes");
-
-const dns = require("dns");
+const hotelRoutes = require("./routes/hotelRoutes");
 
 dns.setServers(["8.8.8.8", "1.1.1.1"]);
 
@@ -29,9 +29,7 @@ app.use(
 );
 
 app.use(express.json());
-
 app.use(express.urlencoded({ extended: true }));
-
 app.use(morgan("dev"));
 
 const limiter = rateLimit({
@@ -46,6 +44,7 @@ const limiter = rateLimit({
 app.use("/api", limiter);
 
 app.use("/api/auth", authRoutes);
+app.use("/api/hotels", hotelRoutes);
 
 app.get("/", (req, res) => {
   res.json({
