@@ -10,6 +10,7 @@ const connectDB = require("./config/db");
 
 const authRoutes = require("./routes/authRoutes");
 const hotelRoutes = require("./routes/hotelRoutes");
+const bookingRoutes = require("./routes/bookingRoutes");
 
 dns.setServers(["8.8.8.8", "1.1.1.1"]);
 
@@ -45,6 +46,7 @@ app.use("/api", limiter);
 
 app.use("/api/auth", authRoutes);
 app.use("/api/hotels", hotelRoutes);
+app.use("/api/bookings", bookingRoutes);
 
 app.get("/", (req, res) => {
   res.json({
