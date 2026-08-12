@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import API from "../api/axios";
 import "./Register.css";
 
@@ -9,19 +10,16 @@ const Register = () => {
     email: "",
     password: "",
   });
-  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
     try {
       await API.post("/auth/register", formData);
+      toast.success("Account created successfully! Please sign in.");
       navigate("/login");
     } catch (err) {
-      setError(
-        err.response?.data?.message || "The registration process failed.",
-      );
+      toast.error(err.response?.data?.message || "Registration failed.");
     }
   };
 
@@ -29,13 +27,8 @@ const Register = () => {
     <div className="register-box">
       <h2 className="register-title">Create Account</h2>
       <p className="register-subtitle">
-        Sign up now and start making reservations.
+        Sign up now to start booking your stays
       </p>
-      {error && (
-        <p style={{ color: "#ef4444", marginTop: "1rem", textAlign: "center" }}>
-          {error}
-        </p>
-      )}
       <form onSubmit={handleSubmit} className="register-form">
         <input
           type="text"
@@ -48,7 +41,7 @@ const Register = () => {
         <input
           type="email"
           className="register-input"
-          placeholder="E-mail address"
+          placeholder="Email address"
           value={formData.email}
           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
           required
@@ -64,13 +57,13 @@ const Register = () => {
           required
         />
         <button type="submit" className="register-btn">
-          Sign Up{" "}
+          Sign Up
         </button>
       </form>
       <p className="register-footer">
-        Do you already have an account?
+        Already have an account?{" "}
         <Link to="/login" className="register-link">
-          Log In{" "}
+          Sign In
         </Link>
       </p>
     </div>
