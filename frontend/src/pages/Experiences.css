@@ -1,0 +1,92 @@
+.experiences-container {
+  max-width: 1200px;
+  margin: 2.5rem auto;
+  padding: 0 1.5rem;
+}
+
+.experiences-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.experiences-header h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.experiences-header p {
+  color: #64748b;
+  font-size: 1.05rem;
+  margin-top: 0.5rem;
+}
+
+.experiences-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.experience-card {
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease;
+}
+
+.experience-card:hover {
+  transform: translateY(-4px);
+}
+
+.experience-img {
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
+}
+
+.experience-body {
+  padding: 1.25rem;
+}
+
+.experience-badge {
+  background: #e0e7ff;
+  color: #3730a3;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+  text-transform: uppercase;
+}
+
+.experience-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 0.75rem 0 0.4rem;
+  color: #0f172a;
+}
+
+.experience-location {
+  color: #64748b;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.experience-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 0.75rem;
+  border-top: 1px solid #f1f5f9;
+}
+
+.experience-duration {
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+.experience-price {
+  font-weight: 700;
+  color: #2563eb;
+}
