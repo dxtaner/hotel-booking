@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import API from "../api/axios";
 import { AuthContext } from "../context/AuthContext";
@@ -8,7 +8,10 @@ import "./Login.css";
 const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const { login } = useContext(AuthContext);
+  const location = useLocation();
   const navigate = useNavigate();
+
+  const from = location.state?.from?.pathname || "/";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,7 +19,8 @@ const Login = () => {
       const res = await API.post("/auth/login", formData);
       login(res.data.user, res.data.token);
       toast.success("Logged in successfully!");
-      navigate("/");
+
+      navigate(from, { replace: true });
     } catch (err) {
       toast.error(err.response?.data?.message || "Login failed.");
     }
