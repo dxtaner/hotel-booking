@@ -1,123 +1,136 @@
 import { useContext, useState } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { NavLink, Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import "./Navbar.css";
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
+
+  const toggleMenu = () => setIsOpen(!isOpen);
+  const closeMenu = () => setIsOpen(false);
 
   const handleLogout = () => {
     logout();
-    setMenuOpen(false);
-    toast.info("Logged out successfully.");
+    closeMenu();
     navigate("/login");
   };
 
-  const closeMenu = () => setMenuOpen(false);
-
   return (
-    <header className="navbar-wrapper">
+    <header className="navbar-header">
       <nav className="navbar-container">
         {/* Logo */}
         <Link to="/" className="navbar-logo" onClick={closeMenu}>
-          <div className="logo-badge">🏨</div>
+          <span className="logo-icon">✨</span>
           <span className="logo-text">
-            Hotel<span>Booking</span>
+            Stay<span className="logo-accent">Finder</span>
           </span>
         </Link>
 
-        {/* Mobile Hamburger Toggle */}
         <button
-          className={`hamburger ${menuOpen ? "open" : ""}`}
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle navigation menu"
+          className={`hamburger ${isOpen ? "is-active" : ""}`}
+          onClick={toggleMenu}
+          aria-label="Toggle Menu"
         >
           <span className="bar"></span>
           <span className="bar"></span>
           <span className="bar"></span>
         </button>
 
-        {/* Nav Links */}
-        <div className={`nav-menu ${menuOpen ? "active" : ""}`}>
+        <div className={`nav-menu ${isOpen ? "active" : ""}`}>
           <div className="nav-links">
             <NavLink
               to="/"
               className={({ isActive }) =>
-                isActive ? "nav-item active" : "nav-item"
+                isActive ? "nav-link active" : "nav-link"
               }
               onClick={closeMenu}
-              end
             >
-              Hotels
+              Home
             </NavLink>
+
             <NavLink
               to="/experiences"
               className={({ isActive }) =>
-                isActive ? "nav-item active" : "nav-item"
+                isActive ? "nav-link active" : "nav-link"
               }
               onClick={closeMenu}
             >
               Experiences
             </NavLink>
+
             <NavLink
               to="/about"
               className={({ isActive }) =>
-                isActive ? "nav-item active" : "nav-item"
+                isActive ? "nav-link active" : "nav-link"
               }
               onClick={closeMenu}
             >
-              About
+              About Us
             </NavLink>
-          </div>
 
-          {/* Auth Actions */}
-          <div className="nav-auth">
-            {user ? (
-              <div className="user-profile-group">
+            {user && (
+              <>
                 <NavLink
                   to="/dashboard"
                   className={({ isActive }) =>
-                    isActive ? "nav-item active" : "nav-item"
+                    isActive ? "nav-link active" : "nav-link"
                   }
                   onClick={closeMenu}
                 >
                   Dashboard
                 </NavLink>
+
                 <NavLink
                   to="/my-bookings"
                   className={({ isActive }) =>
-                    isActive ? "nav-item active" : "nav-item"
+                    isActive ? "nav-link active" : "nav-link"
                   }
                   onClick={closeMenu}
                 >
                   My Bookings
                 </NavLink>
+              </>
+            )}
 
-                <div className="user-info-tag">
-                  <div className="user-avatar">
-                    {user.name?.charAt(0).toUpperCase()}
-                  </div>
+            {user && user.role === "admin" && (
+              <NavLink
+                to="/admin"
+                className={({ isActive }) =>
+                  isActive
+                    ? "nav-link admin-badge active"
+                    : "nav-link admin-badge"
+                }
+                onClick={closeMenu}
+              >
+                Admin Panel
+              </NavLink>
+            )}
+          </div>
+
+          {/* Oturum Butonları & Kullanıcı Bilgisi */}
+          <div className="nav-actions">
+            {user ? (
+              <div className="user-profile">
+                <div className="user-info">
                   <span className="user-name">{user.name}</span>
                 </div>
-
-                <button onClick={handleLogout} className="btn-logout">
+                <button className="btn-logout" onClick={handleLogout}>
                   Logout
                 </button>
               </div>
             ) : (
-              <div className="guest-actions">
-                <Link to="/login" className="btn-ghost" onClick={closeMenu}>
+              <div className="auth-nav-buttons">
+                <Link to="/login" className="btn-login" onClick={closeMenu}>
                   Sign In
                 </Link>
                 <Link
                   to="/register"
-                  className="btn-primary"
+                  className="btn-register"
                   onClick={closeMenu}
                 >
-                  Get Started
+                  Sign Up
                 </Link>
               </div>
             )}
