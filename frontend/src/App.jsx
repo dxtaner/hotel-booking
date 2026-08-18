@@ -14,6 +14,8 @@ import MyBookings from "./pages/MyBookings";
 import Experiences from "./pages/Experiences";
 import About from "./pages/About";
 import Dashboard from "./pages/Dashboard";
+import AdminRoute from "./components/AdminRoute";
+import AdminDashboard from "./pages/AdminDashboard";
 
 function App() {
   return (
@@ -31,6 +33,10 @@ function App() {
           <Route element={<ProtectedRoute />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/my-bookings" element={<MyBookings />} />
+          </Route>
+
+          <Route element={<AdminRoute />}>
+            <Route path="/admin" element={<AdminDashboard />} />
           </Route>
         </Routes>
 
