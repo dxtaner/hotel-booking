@@ -54,9 +54,10 @@
 
 .home-container {
   max-width: 1200px;
-  margin: 2rem auto;
-  padding: 0 1.5rem;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem;
   box-sizing: border-box;
+  width: 100%;
 }
 
 .filter-card {
