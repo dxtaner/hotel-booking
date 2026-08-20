@@ -1,7 +1,8 @@
 .mybookings-container {
   max-width: 800px;
-  margin: 2.5rem auto;
-  padding: 0 1.5rem;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem;
+  width: 100%;
 }
 
 .mybookings-title {
