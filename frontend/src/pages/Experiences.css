@@ -1,7 +1,8 @@
 .experiences-container {
   max-width: 1200px;
-  margin: 2.5rem auto;
-  padding: 0 1.5rem;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem;
+  width: 100%;
 }
 
 .experiences-header {
@@ -25,6 +26,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 1.5rem;
+  width: 100%;
 }
 
 .experience-card {
