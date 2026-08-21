@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import "./Navbar.css";
@@ -7,6 +7,14 @@ const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+  }, [isOpen]);
 
   const toggleMenu = () => setIsOpen(!isOpen);
   const closeMenu = () => setIsOpen(false);
@@ -20,7 +28,6 @@ const Navbar = () => {
   return (
     <header className="navbar-header">
       <nav className="navbar-container">
-        {/* Logo */}
         <Link to="/" className="navbar-logo" onClick={closeMenu}>
           <span className="logo-icon">✨</span>
           <span className="logo-text">
@@ -109,7 +116,6 @@ const Navbar = () => {
             )}
           </div>
 
-          {/* Oturum Butonları & Kullanıcı Bilgisi */}
           <div className="nav-actions">
             {user ? (
               <div className="user-profile">
