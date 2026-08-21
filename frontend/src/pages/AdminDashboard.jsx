@@ -6,6 +6,7 @@ import "./AdminDashboard.css";
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState("bookings");
   const [bookings, setBookings] = useState([]);
+  const [hotels, setHotels] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const [hotelData, setHotelData] = useState({
@@ -22,6 +23,7 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     if (activeTab === "bookings") fetchAdminBookings();
+    if (activeTab === "manage-hotels") fetchHotels();
   }, [activeTab]);
 
   const fetchAdminBookings = async () => {
@@ -33,6 +35,30 @@ const AdminDashboard = () => {
       toast.error(err.response?.data?.message || "Failed to fetch bookings.");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const fetchHotels = async () => {
+    setLoading(true);
+    try {
+      const res = await API.get("/hotels");
+      setHotels(res.data.hotels || []);
+    } catch (err) {
+      toast.error(err.response?.data?.message || "Failed to fetch hotels.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleDeleteHotel = async (id, name) => {
+    if (!window.confirm(`Are you sure you want to delete "${name}"?`)) return;
+
+    try {
+      await API.delete(`/hotels/${id}`);
+      toast.success("Hotel deleted successfully!");
+      setHotels((prev) => prev.filter((hotel) => hotel._id !== id));
+    } catch (err) {
+      toast.error(err.response?.data?.message || "Failed to delete hotel.");
     }
   };
 
@@ -57,7 +83,7 @@ const AdminDashboard = () => {
 
       await API.post("/hotels", payload);
       toast.success("Hotel created successfully!");
-      setActiveTab("bookings");
+      setActiveTab("manage-hotels");
     } catch (err) {
       toast.error(err.response?.data?.message || "Creation failed.");
     }
@@ -66,12 +92,19 @@ const AdminDashboard = () => {
   return (
     <div className="admin-container">
       <h1 className="admin-title">Admin Management Panel</h1>
+
       <div className="admin-tabs">
         <button
           className={`tab-btn ${activeTab === "bookings" ? "active" : ""}`}
           onClick={() => setActiveTab("bookings")}
         >
           All Bookings
+        </button>
+        <button
+          className={`tab-btn ${activeTab === "manage-hotels" ? "active" : ""}`}
+          onClick={() => setActiveTab("manage-hotels")}
+        >
+          Manage Hotels
         </button>
         <button
           className={`tab-btn ${activeTab === "add-hotel" ? "active" : ""}`}
@@ -81,7 +114,7 @@ const AdminDashboard = () => {
         </button>
       </div>
 
-      {activeTab === "bookings" ? (
+      {activeTab === "bookings" && (
         <div className="admin-table-wrapper">
           {loading ? (
             <p style={{ textAlign: "center", padding: "2rem" }}>Loading...</p>
@@ -120,7 +153,53 @@ const AdminDashboard = () => {
             </table>
           )}
         </div>
-      ) : (
+      )}
+
+      {activeTab === "manage-hotels" && (
+        <div className="admin-table-wrapper">
+          {loading ? (
+            <p style={{ textAlign: "center", padding: "2rem" }}>Loading...</p>
+          ) : (
+            <table className="admin-table">
+              <thead>
+                <tr>
+                  <th>Hotel Name</th>
+                  <th>Location</th>
+                  <th>Price/Night</th>
+                  <th>Available Rooms</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {hotels.map((hotel) => (
+                  <tr key={hotel._id}>
+                    <td>
+                      <strong>{hotel.name}</strong>
+                    </td>
+                    <td>
+                      {hotel.location?.city}, {hotel.location?.country}
+                    </td>
+                    <td>${hotel.pricePerNight}</td>
+                    <td>
+                      {hotel.availableRooms} / {hotel.totalRooms}
+                    </td>
+                    <td>
+                      <button
+                        onClick={() => handleDeleteHotel(hotel._id, hotel.name)}
+                        className="btn-danger-sm"
+                      >
+                        Delete Hotel
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </div>
+      )}
+
+      {activeTab === "add-hotel" && (
         <div className="admin-form-card">
           <h2>Create New Hotel</h2>
           <form onSubmit={handleCreateHotel} className="admin-form">
