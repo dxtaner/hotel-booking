@@ -38,3 +38,44 @@ hotel-booking/
 │   │   ├── context/    # AuthContext (Global state)
 │   │   └── pages/      # Home, HotelDetail, AdminDashboard, etc.
 └── README.md
+```
+🚀 Getting Started
+------------------
+
+Follow these steps to get the project up and running locally:
+
+### 1\. Clone the Repository
+
+    git clone https://github.com/dxtaner/hotel-booking.git
+    cd hotel-booking
+
+### 2\. Backend Setup
+
+    cd backend
+    npm install
+
+Create a `.env` file in the `backend` directory and add your environment variables:
+
+    PORT=5000
+    MONGO_URI=mongodb://localhost:27017/hotel-booking
+    JWT_SECRET=super_secret_jwt_key_123
+
+Start the backend server:
+
+    npm start
+
+### 3\. Frontend Setup
+
+Open a new terminal tab and navigate to the frontend folder:
+
+    cd frontend
+    npm install
+
+Start the React development server:
+
+    npm run dev   # or npm start
+
+The application will run locally at `http://localhost:5173` (or `http://localhost:3000`).
+
+* * *
+
