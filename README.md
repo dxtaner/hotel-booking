@@ -21,3 +21,20 @@ A modern, full-stack hotel booking and management platform. Built on the MERN st
 
 ---
 
+## 📂 Project Structure
+
+```text
+hotel-booking/
+├── backend/            # Express.js API & MongoDB Models
+│   ├── config/         # Database connection configuration
+│   ├── controllers/    # Auth, Hotel, and Booking logic
+│   ├── models/         # Mongoose schemas
+│   ├── routes/         # API endpoints
+│   └── server.js       # Main server entry point
+├── frontend/           # React Client UI
+│   ├── src/
+│   │   ├── api/        # Axios configuration
+│   │   ├── components/ # Navbar, Footer, Route Guards
+│   │   ├── context/    # AuthContext (Global state)
+│   │   └── pages/      # Home, HotelDetail, AdminDashboard, etc.
+└── README.md
