@@ -79,3 +79,82 @@ The application will run locally at `http://localhost:5173` (or `http://localhos
 
 * * *
 
+### 🔒 API Endpoints
+
+Method
+
+Endpoint
+
+Description
+
+Auth Required
+
+`POST`
+
+`/api/auth/register`
+
+Register a new user account
+
+None
+
+`POST`
+
+`/api/auth/login`
+
+Authenticate user & get access token
+
+None
+
+`GET`
+
+`/api/hotels`
+
+Fetch all available hotel listings
+
+None
+
+`POST`
+
+`/api/hotels`
+
+Create a new hotel listing
+
+Admin
+
+`DELETE`
+
+`/api/hotels/:id`
+
+Delete an existing hotel listing
+
+Admin
+
+`GET`
+
+`/api/bookings/my-bookings`
+
+Fetch current user's booking history
+
+User
+
+`POST`
+
+`/api/bookings`
+
+Create a new hotel reservation
+
+User
+
+`GET`
+
+`/api/bookings/admin/all`
+
+Fetch all platform-wide reservations
+
+Admin
+
+* * *
+
+### 📝 License
+
+This project is licensed under the **MIT License**. See the `LICENSE` file for details.
