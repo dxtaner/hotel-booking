@@ -3,6 +3,22 @@
 A modern, full-stack hotel booking and management platform. Built on the MERN stack, it allows users to search for hotels and make reservations while providing admins with tools to manage hotels and booking workflows.
 
 ---
+## 🎬 Application Demos
+
+<div align="center">
+
+### Overview & Features Showcase
+
+![App Demo 1](Gif/AppDemo1.gif)
+
+![App Demo 2](Gif/AppDemo2.gif)
+
+![App Demo 3](Gif/AppDemo3.gif)
+
+![App Demo 4](Gif/AppDemo4.gif)
+
+</div>
+
 
 ## ✨ Features
 
